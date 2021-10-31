@@ -12,7 +12,6 @@ namespace Laboratorna_ver_3
 {
     class MyParser
     {
-        private Dictionary<string, int> Letter;
         const double exp = 1e-9;
         const int INF = 1000000009;
         
