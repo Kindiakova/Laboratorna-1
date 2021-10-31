@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -37,6 +37,7 @@ namespace Laboratorna_ver_3
             }
             Columns = COLUMNS;
             Rows = ROWS;
+            
         }
 
         public bool FindCircle(Pair cell) {
@@ -53,7 +54,7 @@ namespace Laboratorna_ver_3
             }
 
             table[cell.first, cell.second].used = false;
-         
+            
             return Circle;
         }
  
@@ -61,9 +62,23 @@ namespace Laboratorna_ver_3
         {
             if (table[cell.first, cell.second].used2) return;
             table[cell.first, cell.second].used2 = true;
-             table[cell.first, cell.second].value = myParser.getExpValue(table[cell.first, cell.second].exp, cell);
-            
-
+            try
+            {
+                table[cell.first, cell.second].value = 
+                    myParser.getExpValue(table[cell.first, cell.second].exp, cell);
+            }
+            catch (FormatException ex)
+            {
+                table[cell.first, cell.second].value = "NULL";
+                MessageBox.Show("Помилка формату виразу: " + ex.Message);
+                DependsUpdate(new List<Pair>(), cell);
+            }
+            catch (InvalidCastException ex)
+            {
+                table[cell.first, cell.second].value = "NULL";
+                MessageBox.Show("Помилка у приведенні типів:" + ex.Message);
+                DependsUpdate(new List<Pair>(), cell);
+            }
             for (int i = 0; i < table[cell.first, cell.second].dependentsTo.Count; ++i)            
                 Update(myParser, table[cell.first, cell.second].dependentsTo[i]);
             
