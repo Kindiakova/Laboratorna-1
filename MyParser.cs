@@ -20,6 +20,9 @@ namespace Laboratorna_ver_3
         {
             tableVoid = TABLE;
         }
+        public MyParser(s)
+        {
+        }
 
         private string IsOperator(string line)
         {
