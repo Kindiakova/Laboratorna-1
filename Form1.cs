@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,6 +40,7 @@ namespace Laboratorna_ver_3
             saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
         }
 
+
         /// проверь 0 в парсере table
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -75,25 +76,13 @@ namespace Laboratorna_ver_3
             {
                 int i = e.RowIndex, j = e.ColumnIndex;
                 table[i, j].exp = dataGridView1[j, i].Value.ToString();
-                try
-                {
-                    tableVoid.Update(myParser, new Pair(i, j));
-                    if (tableVoid.Circle)
+                
+                tableVoid.Update(myParser, new Pair(i, j));
+                if (tableVoid.Circle)
                         MessageBox.Show("Цикл", "Знайдено цикл");
-                    tableVoid.Circle = false;
-                }
-                catch (FormatException ex)
-                {
-                    table[i, j].value = "NULL";
-                    MessageBox.Show("Помилка формату виразу: " + ex.Message);
-                    tableVoid.DependsUpdate(new List<Pair>(), new Pair(i, j));
-                }
-                catch (InvalidCastException ex)
-                {
-                    table[i, j].value = "NULL";
-                    MessageBox.Show("Помилка у приведенні типів:" + ex.Message);
-                    tableVoid.DependsUpdate(new List<Pair>(), new Pair(i, j));
-                }
+                tableVoid.Circle = false;
+               
+                
             }
         }     
 
